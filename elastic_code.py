@@ -1,21 +1,44 @@
 from datetime import datetime
 from elasticsearch import Elasticsearch
-es = Elasticsearch()
+from sem_search import search_similar_movies
+import logging
+# def connect_elasticsearch():
+#     _es = None
+#     _es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
+#     if _es.ping():
+#         print('Yay Connect')
+#     else:
+#         print('Awww it could not connect!')
+#     return _es
 
-doc = {
-    'author': 'kimchy',
-    'text': 'Elasticsearch: cool. bonsai cool.',
-    'timestamp': datetime.now(),
-}
-res = es.index(index="test-index", id=1, document=doc)
-print(res['result'])
 
-res = es.get(index="test-index", id=1)
-print(res['_source'])
+def connect_elastic():
+    client = Elasticsearch("http://localhost:9200")
+    if client.ping():
+        print("yay.. connected ")
 
-es.indices.refresh(index="test-index")
+    else:
+        print("Cannot connect.")
+    return client
 
-res = es.search(index="test-index", query={"match_all": {}})
-print("Got %d Hits:" % res['hits']['total']['value'])
-for hit in res['hits']['hits']:
-    print("%(timestamp)s %(author)s: %(text)s" % hit["_source"])
+
+def create_an_index(es_client, index_name,doc,id):
+    
+    resp = es_client.index(index=index_name, id=id, document=doc)
+    return resp 
+
+    
+
+
+if __name__ == '__main__':
+    # connect_elasticsearch()
+    es_client= connect_elastic()
+    doc = {
+        'author': 'Ajay',
+        'text': 'Interensting content...',
+        'timestamp': datetime.now(),
+    }
+
+    resp = create_an_index(es_client=es_client,index_name="company",doc=doc,id=1)
+    print(resp)
+    # logging.basicConfig(level=logging.ERROR)
