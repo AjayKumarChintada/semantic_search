@@ -1,0 +1,12 @@
+{'took': 4, 'timed_out': False, '_shards': {'total': 1, 'successful': 1, 'skipped': 0, 'failed': 0
+    }, 'hits': {'total': {'value': 2, 'relation': 'eq'
+        }, 'max_score': 1.0, 'hits': [
+            {'_index': 'company', '_id': '2', '_score': 1.0, '_source': {'author': 'Ajay', 'text': 'Interensting content ajay ...', 'timestamp': '2022-06-13T16: 13: 00.845302'
+                }
+            },
+            {'_index': 'company', '_id': '1', '_score': 1.0, '_source': {'author': 'Ajay', 'text': 'Interensting content...', 'timestamp': '2022-06-13T16: 09: 24.120026'
+                }
+            }
+        ]
+    }
+}

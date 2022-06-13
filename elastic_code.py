@@ -1,6 +1,7 @@
 from datetime import datetime
 from elasticsearch import Elasticsearch
 from sem_search import search_similar_movies
+
 import logging
 # def connect_elasticsearch():
 #     _es = None
@@ -35,10 +36,15 @@ if __name__ == '__main__':
     es_client= connect_elastic()
     doc = {
         'author': 'Ajay',
-        'text': 'Interensting content...',
+        'text': 'Interensting content ajay ...',
         'timestamp': datetime.now(),
     }
 
-    resp = create_an_index(es_client=es_client,index_name="company",doc=doc,id=1)
+    # resp = create_an_index(es_client=es_client,index_name="company",doc=doc,id=2)
+    # print(resp)
+    # resp = es_client.get(index="company", id=2)
+    # print(resp)
+
+    resp = es_client.search(index="company", query={"match_all": {}})
     print(resp)
     # logging.basicConfig(level=logging.ERROR)
